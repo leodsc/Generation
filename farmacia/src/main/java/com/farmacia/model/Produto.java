@@ -16,13 +16,8 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
 @Table(name = "produto")
-@Getter
-@Setter
 public class Produto {
 
 	@Id
@@ -32,6 +27,7 @@ public class Produto {
 	@NotBlank
 	private String nome;
 
+	@NotNull
 	@Temporal(value = TemporalType.DATE)
 	private Date dataVencimento;
 
@@ -44,8 +40,12 @@ public class Produto {
 	private String tarja;
 	
 	@ManyToOne
-	@JsonIgnoreProperties("categoria")
+	@JsonIgnoreProperties("produto")
 	private Categoria categoria;
+
+	@ManyToOne
+	@JsonIgnoreProperties("produtos")
+	private Usuario usuario;
 
 	public long getId() {
 		return id;
@@ -68,7 +68,7 @@ public class Produto {
 
 	}
 
-	public void setDataVencimento(Date data_vencimento) {
+	public void setDataVencimento(Date dataVencimento) {
 		this.dataVencimento = dataVencimento;
 	}
 
